@@ -76,20 +76,20 @@ public class ServiceController {
 
     public static void main(String[] args) {
         // Example usage
-        ServiceType electricity = ServiceType.ELECTRICITY;
+        ServiceType gas = ServiceType.GAS;
 
         System.out.println("Before Update");
 
-        System.out.println(getUnitPrice(electricity));
-        System.out.println(getServicePrice(electricity));
+        System.out.println(getUnitPrice(gas));
+        System.out.println(getServicePrice(gas));
 
-        updateUnitCharges(electricity, 0.15);
-        updateServiceCharges(electricity, 2.0);
+        updateUnitCharges(gas, 0.4);
+        updateServiceCharges(gas, 0.6);
 
         System.out.println("After update");
         // Print updated charges
-        System.out.println(getUnitPrice(electricity));
-        System.out.println(getServicePrice(electricity));
+        System.out.println(getUnitPrice(gas));
+        System.out.println(getServicePrice(gas));
 
     }
 }
