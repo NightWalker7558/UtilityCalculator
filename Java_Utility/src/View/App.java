@@ -17,7 +17,6 @@ import Model.Customer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 // import Model.SubscriptionManager;
 // import Model.SubscriptionPlan;
 // import Controller.CustomerController;
@@ -29,7 +28,7 @@ public class App extends JFrame {
     CustomerController customerController;
     CustomerRegistrationView customerRegistrationView;
     CustomerDashboardView customerDashboardView;
-    // AdminDashboardView adminDashboardView;
+    AdminDashboardView adminDashboardView;
     // SubscriptionPlanDetailView subscriptionPlanDetailView;
     // NewSubscriptionPlanView newSubscriptionPlanView;
 
@@ -100,5 +99,10 @@ public class App extends JFrame {
     protected void adminLogin() {
         adminLoginView = new AdminLoginView(this);
         paneChange(adminLoginView);
+    }
+
+    protected void adminDashboard() {
+        adminDashboardView = new AdminDashboardView(this);
+        paneChange(adminDashboardView);
     }
 }

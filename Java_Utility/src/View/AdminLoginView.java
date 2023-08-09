@@ -15,7 +15,7 @@ public class AdminLoginView extends LoginView {
                 String password = String.valueOf(passwordField.getPassword());
 
                 if (username.equals("admin") && password.equals("admin")) {
-                    // app.adminDashboard();
+                    app.adminDashboard();
                 } else {
                     JOptionPane.showMessageDialog(AdminLoginView.this,
                             "Incorrect username or password",
