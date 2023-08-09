@@ -1,21 +1,19 @@
 package Model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Customer {
     private String username;
     private String password;
     private String email;
-    private ArrayList<UtilityBill> bills;
+    static WrittenBills writtenBills = new WrittenBills();
     // Add additional attributes as needed
 
     public Customer(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
+
     }
 
     // Getters and setters for the attributes
@@ -42,6 +40,28 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void addBill(String utilityType, int meterMeasurement, String date) {
+        writtenBills.addBill(username, utilityType, meterMeasurement, date);
+    }
+
+    public void editBill(int billId, String newMeterMeasurement) {
+        writtenBills.editBill(billId, newMeterMeasurement);
+    }
+
+    public void deleteBill(int billId) {
+        writtenBills.deleteBill(billId);
+    }
+
+    public ArrayList<UtilityBill> getBills() {
+        ArrayList<UtilityBill> userBills = new ArrayList<>();
+        for (UtilityBill bill : writtenBills.getBills()) {
+            if (bill.getUserName().equals(username)) {
+                userBills.add(bill);
+            }
+        }
+        return userBills;
     }
 
 }
