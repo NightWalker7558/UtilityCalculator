@@ -60,5 +60,16 @@ public class CustomerControllerTest {
         } else {
             System.out.println("Email '" + newEmail + "' is available.");
         }
+        System.out.println("\nTesting loadCustomer function:");
+        usernameToSearch = "john_doe";
+        String passwordToSearch = "password123";
+
+        Customer loadedCustomer = customerController.loadCustomer(usernameToSearch, passwordToSearch);
+        if (loadedCustomer != null) {
+            System.out.println("Loaded Customer: " + loadedCustomer.getUsername());
+            System.out.println("Email: " + loadedCustomer.getEmail());
+        } else {
+            System.out.println("Customer not found with the given credentials.");
+        }
     }
 }
