@@ -14,6 +14,7 @@ public class WrittenBills {
     public WrittenBills() {
         this.bills = new ArrayList<>();
         this.billsFilePath = "src/Model/bills.txt";
+        this.id = 1;
 
     }
 
@@ -39,6 +40,7 @@ public class WrittenBills {
                 increaseID();
 
             }
+            this.id = bills.get(bills.size() - 1).getId() + 1;
             scanner.close();
 
         } catch (Exception e) {
