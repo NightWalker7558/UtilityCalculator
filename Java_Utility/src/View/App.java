@@ -73,7 +73,8 @@ public class App extends JFrame {
     }
 
     protected Customer loadCustomer(String username, String password) {
-        return customerController.loadCustomer(username, password);
+        // return customerController.loadCustomer(username, password);
+        return new Customer(username, password, "email@example.com");
     }
 
     // Customer Dashboard

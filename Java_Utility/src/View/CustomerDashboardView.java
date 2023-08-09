@@ -1,6 +1,7 @@
 package View;
 
 import Model.Customer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -57,8 +58,8 @@ public class CustomerDashboardView extends JPanel {
 
         JLabel usernameLabel = new JLabel(customer.getUsername());
         usernameLabel.setFont(new Font("Arial", Font.BOLD, 28));
-        // JLabel emailLabel = new JLabel(customer.getEmail());
-        // emailLabel.setFont(new Font("Arial", Font.ITALIC, 14));
+        JLabel emailLabel = new JLabel(customer.getEmail());
+        emailLabel.setFont(new Font("Arial", Font.ITALIC, 14));
 
         JButton logoutButton = new JButton("Logout");
         logoutButton.setBackground(Color.decode("#293241"));
@@ -81,8 +82,7 @@ public class CustomerDashboardView extends JPanel {
                         .addComponent(gap)
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(usernameLabel)
-                                // .addComponent(emailLabel)
-                                )
+                                .addComponent(emailLabel))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
                                 Short.MAX_VALUE)
                         .addComponent(logoutButton)
@@ -93,8 +93,7 @@ public class CustomerDashboardView extends JPanel {
                         .addComponent(gap)
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(usernameLabel)
-                                // .addComponent(emailLabel)
-                                )
+                                .addComponent(emailLabel))
                         .addComponent(logoutButton)
                         .addComponent(gap));
 
