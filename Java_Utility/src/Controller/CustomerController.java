@@ -123,4 +123,13 @@ public class CustomerController {
             System.out.println("Error writing to customers file: " + e.getMessage());
         }
     }
+
+    public Customer loadCustomer(String username, String password) {
+        for (Customer customer : customers) {
+            if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
+                return customer;
+            }
+        }
+        return null;
+    }
 }
