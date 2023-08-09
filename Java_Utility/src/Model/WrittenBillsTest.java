@@ -38,7 +38,7 @@ public class WrittenBillsTest {
 
         // Edit a bill (Change meter measurement)
         int billIdToEdit = 1; // Assuming bill with ID 1 exists
-        writtenBills.editBill(billIdToEdit, "200000");
+        writtenBills.editBill(billIdToEdit, 200000.00);
 
         // Print updated bills data
         System.out.println("\nUpdated Bills Data after Edit:");

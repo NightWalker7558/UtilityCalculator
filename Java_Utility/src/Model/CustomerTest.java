@@ -16,7 +16,7 @@ public class CustomerTest {
 
         // Edit the added bill
         int billIdToEdit = 1; // Assuming bill with ID 1 exists
-        testCustomer.editBill(billIdToEdit, "200");
+        testCustomer.editBill(billIdToEdit, 200);
 
         // Print updated bills for the customer
         System.out.println("Customer's Updated Bills:");

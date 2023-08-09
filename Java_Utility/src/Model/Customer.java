@@ -42,11 +42,11 @@ public class Customer {
         this.email = email;
     }
 
-    public void addBill(String utilityType, int meterMeasurement, String date) {
+    public void addBill(String utilityType, double meterMeasurement, String date) {
         writtenBills.addBill(username, utilityType, meterMeasurement, date);
     }
 
-    public void editBill(int billId, String newMeterMeasurement) {
+    public void editBill(int billId, double newMeterMeasurement) {
         writtenBills.editBill(billId, newMeterMeasurement);
     }
 

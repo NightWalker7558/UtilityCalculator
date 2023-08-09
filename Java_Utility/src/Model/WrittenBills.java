@@ -33,7 +33,7 @@ public class WrittenBills {
                 int id = Integer.parseInt(parts[0].trim());
                 String name = parts[1].trim();
                 String UtilityType = parts[2].trim();
-                int metermeasurment = Integer.parseInt(parts[3].trim());
+                double metermeasurment = Double.parseDouble(parts[3].trim());
                 double price = Double.parseDouble(parts[4].trim());
                 String Date = parts[5].trim();
                 bills.add(new UtilityBill(id, name, UtilityType, metermeasurment, price, Date));
@@ -48,7 +48,7 @@ public class WrittenBills {
         }
     }
 
-    public void addBill(String username, String utilityType, int meterMeasurement, String date) {
+    public void addBill(String username, String utilityType, double meterMeasurement, String date) {
         bills.add(new UtilityBill(id, username, utilityType, meterMeasurement, 0.0, date));
         increaseID();
         saveBillsToFile();
@@ -66,10 +66,10 @@ public class WrittenBills {
         }
     }
 
-    public void editBill(int billId, String newMeterMeasurement) {
+    public void editBill(int billId, Double newMeterMeasurement) {
         UtilityBill bill = findbill(billId);
         if (bill != null) {
-            bill.setMeterMeasurement(Integer.parseInt(newMeterMeasurement));
+            bill.setMeterMeasurement(newMeterMeasurement);
             bill.setprice();
             saveBillsToFile();
 

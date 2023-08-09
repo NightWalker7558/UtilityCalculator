@@ -1,5 +1,6 @@
-1,john_doe,Electricity,200,0.0,2023-08-10
-2,hakeem_doe,Electricity,150,0.0,2023-08-10
-3,john_doe,Electricity,150,0.0,2023-08-10
-4,hakeem_doe,Electricity,150,0.0,2023-08-10
-5,john_doe,Electricity,150,0.0,2023-08-10
+1,john_doe,Electricity,200.0,34.0,2023-08-10
+2,hakeem_doe,Electricity,150.0,28.0,2023-08-10
+4,hakeem_doe,Electricity,150.0,28.0,2023-08-10
+5,john_doe,Electricity,150.0,28.0,2023-08-10
+6,hakeem_doe,Electricity,150.0,28.0,2023-08-10
+7,john_doe,Electricity,150.0,28.0,2023-08-10
