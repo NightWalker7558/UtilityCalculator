@@ -8,9 +8,6 @@ public class CustomerTest {
         // Create a test customer
         Customer testCustomer = new Customer("john_doe", "password123", "john@example.com");
 
-        // Load bills from file
-        testCustomer.writtenBills.loadBillsFromFile();
-
         // Add a new bill for the customer
         testCustomer.addBill("Electricity", 150, "2023-08-10");
 

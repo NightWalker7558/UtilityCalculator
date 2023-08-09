@@ -6,9 +6,6 @@ public class WrittenBillsTest {
         // Create a test WrittenBills instance
         WrittenBills writtenBills = new WrittenBills();
 
-        // Load bills from file
-        writtenBills.loadBillsFromFile();
-
         // Print initial bills data
         System.out.println("Initial Bills Data:");
         if (writtenBills.getBills().isEmpty() == false) {

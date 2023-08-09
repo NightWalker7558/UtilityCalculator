@@ -14,7 +14,9 @@ public class WrittenBills {
     public WrittenBills() {
         this.bills = new ArrayList<>();
         this.billsFilePath = "src/Model/bills.txt";
+
         this.id = 1;
+        this.loadBillsFromFile();
 
     }
 
@@ -36,8 +38,10 @@ public class WrittenBills {
                 double metermeasurment = Double.parseDouble(parts[3].trim());
                 double price = Double.parseDouble(parts[4].trim());
                 String Date = parts[5].trim();
-                bills.add(new UtilityBill(id, name, UtilityType, metermeasurment, price, Date));
-                increaseID();
+                if (findiD(id) == false) {
+                    bills.add(new UtilityBill(id, name, UtilityType, metermeasurment, price, Date));
+                    increaseID();
+                }
 
             }
             this.id = bills.get(bills.size() - 1).getId() + 1;
@@ -46,6 +50,16 @@ public class WrittenBills {
         } catch (Exception e) {
             System.out.println("Error loading bills from file");
         }
+    }
+
+    public boolean findiD(int id) {
+        for (UtilityBill bill : bills) {
+            if (bill.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+
     }
 
     public void addBill(String username, String utilityType, double meterMeasurement, String date) {
