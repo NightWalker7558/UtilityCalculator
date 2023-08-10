@@ -43,7 +43,7 @@ public class NewBillView extends JPanel {
         readingField = new JTextField(20);
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         dateTextField = new JFormattedTextField(format);
-        TextPrompt tp7 = new TextPrompt("2020-01-31", dateTextField);
+        new TextPrompt("2020-01-31", dateTextField);
 
         addButton = new JButton("Add");
         addButton.setBackground(Color.decode("#4CAF50"));

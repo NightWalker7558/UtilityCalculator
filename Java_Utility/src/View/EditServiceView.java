@@ -1,24 +1,22 @@
 package View;
 
-import Model.UtilityBill;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EditBillView extends JPanel {
+import Model.ServiceType;
+
+public class EditServiceView extends JPanel {
     protected App app;
-    private JLabel nameLabel;
-    private JLabel priceLabel;
-    private JLabel readingLabel;
-    private JLabel dateLabel;
+    private JLabel typeLabel;
+    private JLabel servicePriceLabel;
+    private JLabel unitPriceLabel;
     private JButton backButton;
-    private JButton deleteButton;
     private JButton saveButton;
 
-    public EditBillView(App app, UtilityBill utilityBill) {
+    public EditServiceView(App app, ServiceType serviceType) {
         this.app = app;
 
         setLayout(new BorderLayout());
@@ -34,17 +32,15 @@ public class EditBillView extends JPanel {
 
         // Subscription details
         JLabel nameFieldLabel = createFieldLabel("Utility Type:");
-        nameLabel = createEditableLabel(utilityBill.getUtilityType());
+        typeLabel = createEditableLabel(serviceType.name());
 
-        JLabel priceFieldLabel = createFieldLabel("Price ($):");
-        priceLabel = createEditableLabel(String.format("%.2f", utilityBill.getPrice()));
+        JLabel servicePriceFieldLabel = createFieldLabel("Service Charges ($):");
+        servicePriceLabel = createEditableLabel(String.format("%.2f", serviceType.getServiceCharges()));
+        JButton editServiceButton = createEditButton("Edit Service Charges", servicePriceLabel);
 
-        JLabel readingFieldLabel = createFieldLabel("Reading:");
-        readingLabel = createEditableLabel(Double.toString(utilityBill.getMeterMeasurement()));
-        JButton editReadingButton = createEditButton("Edit Reading", readingLabel);
-
-        JLabel dateFieldLabel = createFieldLabel("Date (yyyy-MM-dd):");
-        dateLabel = createEditableLabel(utilityBill.getDate());
+        JLabel unitPriceFieldLabel = createFieldLabel("Unit Charges ($):");
+        unitPriceLabel = createEditableLabel(String.format("%.2f",serviceType.getUnitCharges()));
+        JButton editUnitButton = createEditButton("Edit Unit Charges", unitPriceLabel);
 
         saveButton = new JButton("Save");
         saveButton.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -53,24 +49,21 @@ public class EditBillView extends JPanel {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String utilityType = nameLabel.getText();
-                String reading = readingLabel.getText();
-                String date = dateLabel.getText();
+                String utilityType = typeLabel.getText();
+                String unit = unitPriceLabel.getText();
+                String service = servicePriceLabel.getText();
 
-                if (utilityType.isEmpty() || reading.isEmpty() || date.isEmpty()) {
-                    JOptionPane.showMessageDialog(EditBillView.this,
+                if (utilityType.isEmpty() || unit.isEmpty() || service.isEmpty()) {
+                    JOptionPane.showMessageDialog(EditServiceView.this,
                             "Please fill in all the fields.", "Incomplete Fields", JOptionPane.ERROR_MESSAGE);
-                } else if (!isNumeric(reading)) {
-                    JOptionPane.showMessageDialog(EditBillView.this,
-                            "Data and Talk Time must be numeric values.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                } else if (!isNumeric(unit) || !isNumeric(service)) {
+                    JOptionPane.showMessageDialog(EditServiceView.this,
+                            "Unit and Service Charges must be numeric values.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    app.editBill(utilityBill.getId(), Double.parseDouble(reading));
-                    // priceLabel.setText(String.format("%.2f", price));
+                    app.editService(serviceType,  Double.parseDouble(service), Double.parseDouble(unit));
 
                     saveButton.setEnabled(false);
                     backButton.setEnabled(true);
-
-                    app.editBillPage(utilityBill);
                 }
             }
         });
@@ -81,18 +74,6 @@ public class EditBillView extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                app.customerDashboard();
-            }
-        });
-
-        deleteButton = new JButton("Delete");
-        deleteButton.setFont(new Font("Arial", Font.PLAIN, 12));
-        deleteButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Handle delete button action here
-                app.deleteBill(utilityBill.getId());
                 app.adminDashboard();
             }
         });
@@ -102,42 +83,37 @@ public class EditBillView extends JPanel {
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(nameFieldLabel)
-                                        .addComponent(priceFieldLabel)
-                                        .addComponent(readingFieldLabel)
-                                        .addComponent(dateFieldLabel))
+                                        .addComponent(servicePriceFieldLabel)
+                                        .addComponent(unitPriceFieldLabel))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(nameLabel)
-                                        .addComponent(priceLabel)
-                                        .addComponent(readingLabel)
-                                        .addComponent(dateLabel))
+                                        .addComponent(typeLabel)
+                                        .addComponent(servicePriceLabel)
+                                        .addComponent(unitPriceLabel))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(editReadingButton)))
+                                        .addComponent(editServiceButton)
+                                        .addComponent(editUnitButton)))
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(saveButton)
-                                .addComponent(backButton)
-                                .addComponent(deleteButton)));
+                                .addComponent(backButton)));
 
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(nameFieldLabel)
-                                .addComponent(nameLabel))
+                                .addComponent(typeLabel))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(priceFieldLabel)
-                                .addComponent(priceLabel))
+                                .addComponent(servicePriceFieldLabel)
+                                .addComponent(servicePriceLabel)
+                                .addComponent(editServiceButton))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(readingFieldLabel)
-                                .addComponent(readingLabel)
-                                .addComponent(editReadingButton))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(dateFieldLabel)
-                                .addComponent(dateLabel))
+                                .addComponent(unitPriceFieldLabel)
+                                .addComponent(unitPriceLabel)
+                                .addComponent(editUnitButton))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(saveButton)
-                                .addComponent(backButton)
-                                .addComponent(deleteButton)));
+                                .addComponent(backButton)));
 
         add(contentPanel, BorderLayout.CENTER);
 
@@ -169,7 +145,7 @@ public class EditBillView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String newValue = JOptionPane.showInputDialog(
-                        EditBillView.this, "Enter new value:");
+                        EditServiceView.this, "Enter new value:");
                 if (newValue != null && !newValue.isEmpty()) {
                     targetLabel.setText(newValue);
                     saveButton.setEnabled(true);
@@ -184,4 +160,3 @@ public class EditBillView extends JPanel {
         return str.matches("-?\\d+(\\.\\d+)?");
     }
 }
-

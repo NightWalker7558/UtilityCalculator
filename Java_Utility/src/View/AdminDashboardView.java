@@ -8,9 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import Model.ServiceType;
 import Model.UtilityBill;
 
 import Controller.StaffController;
+import Controller.ServiceController;;
 
 public class AdminDashboardView extends JPanel {
     private JPanel adminInfoPanel;
@@ -116,28 +118,26 @@ public class AdminDashboardView extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 1)); // 2 rows, 1 column
 
-        String[] utilities = { "Electricity", "Water", "Gas" };
-        double[] serviceCharges = { 50.0, 20.0, 30.0 }; // Example service charges
-        double[] unitCharges = { 0.1, 0.05, 0.08 }; // Example unit charges
+        String[] utilities = { "ELECTRICITY", "WATER", "GAS" };
 
         // Create a panel to hold the utilities and edit buttons
         JPanel utilitiesPanel = new JPanel();
         utilitiesPanel.setLayout(new GridLayout(1, utilities.length));
 
-        int padding = 10; // Adjust the padding as needed
+        int padding = 10;
 
         for (int i = 0; i < utilities.length; i++) {
+            ServiceType serviceType = ServiceType.valueOf(utilities[i]);
             JPanel utilityPanel = new JPanel();
             utilityPanel.setLayout(new GridLayout(3, 1));
-            utilityPanel.setBorder(BorderFactory.createEmptyBorder(padding, padding, 2 * padding, padding)); // Add
-                                                                                                             // padding
+            utilityPanel.setBorder(BorderFactory.createEmptyBorder(padding, padding, 2 * padding, padding));
 
             JLabel utilityLabel = new JLabel(utilities[i]);
             utilityLabel.setHorizontalAlignment(JLabel.CENTER);
             utilityPanel.add(utilityLabel);
 
-            JLabel serviceChargeLabel = new JLabel("Service Charge: $" + serviceCharges[i]);
-            JLabel unitChargeLabel = new JLabel("Unit Charge: $" + unitCharges[i]);
+            JLabel serviceChargeLabel = new JLabel("Service Charge: $" + ServiceController.getServicePrice(serviceType));
+            JLabel unitChargeLabel = new JLabel("Unit Charge: $" + ServiceController.getUnitPrice(serviceType));
 
             JPanel chargesPanel = new JPanel();
             chargesPanel.setLayout(new GridLayout(2, 1));
@@ -147,6 +147,10 @@ public class AdminDashboardView extends JPanel {
             utilityPanel.add(chargesPanel);
 
             JButton editButton = new JButton("Edit");
+            editButton.addActionListener((e) -> {
+                app.editServicePage(serviceType);
+            });
+
             utilityPanel.add(editButton);
 
             utilitiesPanel.add(utilityPanel);

@@ -141,7 +141,7 @@ public class CustomerRegistrationView extends JPanel {
             return false;
             
         } else { 
-            return app.registerNewUser(username, email, password);
+            return app.registerNewUser(username, password, email);
         }
     }
 }

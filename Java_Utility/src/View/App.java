@@ -1,8 +1,9 @@
 package View;
 
 import Controller.CustomerController;
-
+import Controller.ServiceController;
 import Model.Customer;
+import Model.ServiceType;
 import Model.UtilityBill;
 
 // import java.io.BufferedReader;
@@ -32,6 +33,7 @@ public class App extends JFrame {
     AdminDashboardView adminDashboardView;
     NewBillView newBillView;
     EditBillView editBillView;
+    EditServiceView editServiceView;
 
     // Controllers
     CustomerController customerController;
@@ -141,8 +143,24 @@ public class App extends JFrame {
         paneChange(adminLoginView);
     }
 
+    // Admin Dashboard
+
     protected void adminDashboard() {
         adminDashboardView = new AdminDashboardView(this);
         paneChange(adminDashboardView);
+    }
+
+    // Edit Service Page
+
+    protected void editServicePage(ServiceType serviceType) {
+        editServiceView = new EditServiceView(this, serviceType);
+        paneChange(editServiceView);
+    }
+
+    // Edit Service Function
+
+    protected void editService(ServiceType serviceType, double serviceCharges, double unitCharges) {
+        ServiceController.updateServiceCharges(serviceType, serviceCharges);
+        ServiceController.updateUnitCharges(serviceType, unitCharges);
     }
 }
