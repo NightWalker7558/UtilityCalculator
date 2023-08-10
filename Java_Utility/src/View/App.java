@@ -22,15 +22,20 @@ import javax.swing.JPanel;
 // import Controller.CustomerController;
 
 public class App extends JFrame {
+    // View Panels
     LoginSelectionView loginSelectionView;
     AdminLoginView adminLoginView;
     CustomerLoginView customerLoginView;
-    CustomerController customerController;
     CustomerRegistrationView customerRegistrationView;
     CustomerDashboardView customerDashboardView;
     AdminDashboardView adminDashboardView;
-    // SubscriptionPlanDetailView subscriptionPlanDetailView;
-    // NewSubscriptionPlanView newSubscriptionPlanView;
+    NewBillView newBillView;
+
+    // Controllers
+    CustomerController customerController;
+
+    // Model
+    Customer loggedInCustomer;
 
     public App() {
         setTitle("Utility App");
@@ -41,6 +46,7 @@ public class App extends JFrame {
         selectionPane();
 
         customerController = new CustomerController();
+        loggedInCustomer = null;
 
         setVisible(true);
     }
@@ -73,15 +79,33 @@ public class App extends JFrame {
     }
 
     protected Customer loadCustomer(String username, String password) {
-        // return customerController.loadCustomer(username, password);
-        return new Customer(username, password, "email@example.com");
+        return this.loggedInCustomer = customerController.loadCustomer(username, password);
     }
 
     // Customer Dashboard
 
-    protected void customerDashboard(Customer customer) {
-        customerDashboardView = new CustomerDashboardView(this, customer);
+    protected void customerDashboard() {
+        customerDashboardView = new CustomerDashboardView(this, loggedInCustomer);
         paneChange(customerDashboardView);
+    }
+
+    // New Bill Page
+
+    protected void newBillView() {
+        newBillView = new NewBillView(this);
+        paneChange(newBillView);
+    }
+
+    // Add New Bill
+
+    protected void addNewBill(String utilityType, double meterMeasurement, String date) {
+        loggedInCustomer.addBill(utilityType, meterMeasurement, date);
+    }
+
+    // Delete Bill
+
+    protected void deleteBill(int id) {
+        loggedInCustomer.deleteBill(id);
     }
 
     // Customer Registration Page

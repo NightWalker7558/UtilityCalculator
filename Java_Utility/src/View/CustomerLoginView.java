@@ -16,7 +16,8 @@ public class CustomerLoginView extends LoginView {
                 String password = String.valueOf(passwordField.getPassword());
 
                 if (app.validateCustomerLogin(username, password)) {
-                    app.customerDashboard(app.loadCustomer(username, password));
+                    app.loadCustomer(username, password);
+                    app.customerDashboard();
                 } else {
                     JOptionPane.showMessageDialog(CustomerLoginView.this,
                             "Incorrect username or password",

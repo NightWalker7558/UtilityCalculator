@@ -28,6 +28,7 @@ public class WrittenBills {
         try {
             File file = new File(billsFilePath);
             Scanner scanner = new Scanner(file);
+            bills = new ArrayList<>();
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();

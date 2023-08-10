@@ -56,6 +56,7 @@ public class Customer {
 
     public ArrayList<UtilityBill> getBills() {
         ArrayList<UtilityBill> userBills = new ArrayList<>();
+        writtenBills.loadBillsFromFile();
         for (UtilityBill bill : writtenBills.getBills()) {
             if (bill.getUserName().equals(username)) {
                 userBills.add(bill);

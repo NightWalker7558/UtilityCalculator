@@ -1,6 +1,7 @@
 package View;
 
 import Model.Customer;
+import Model.UtilityBill;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,11 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 // import java.io.FileNotFoundException;
 // import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class CustomerDashboardView extends JPanel {
     private JPanel customerInfoPanel;
-    // private JPanel subscribedPlansPanel;
-    // private JPanel availablePackagesPanel;
+    private JPanel currentBillsPanel;
     private Customer customer;
     protected App app;
 
@@ -24,8 +25,7 @@ public class CustomerDashboardView extends JPanel {
         setBackground(Color.WHITE);
 
         customerInfoPanel = createCustomerInfoPanel();
-        // subscribedPlansPanel = createSubscribedPlansPanel(customer.getSubscriptions(customer.getUsername()));
-        // availablePackagesPanel = createAvailablePackagesPanel((ArrayList<SubscriptionPlan>) subscriptionManager.getSubscriptionPlans());
+        currentBillsPanel = createCurrentBillsPanel(this.customer.getBills());
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -34,6 +34,13 @@ public class CustomerDashboardView extends JPanel {
         scrollPane.setViewportView(createContentPane());
 
         add(scrollPane, BorderLayout.CENTER);
+
+        JButton addBillButton = new JButton("Add Bill");
+        addBillButton.addActionListener(e -> {
+            app.newBillView();
+        });
+
+        add(addBillButton, BorderLayout.SOUTH);
 
         setPreferredSize(new Dimension(600, 400));
 
@@ -46,8 +53,7 @@ public class CustomerDashboardView extends JPanel {
         contentPane.setBackground(Color.WHITE);
 
         contentPane.add(customerInfoPanel);
-        // contentPane.add(subscribedPlansPanel);
-        // contentPane.add(availablePackagesPanel);
+        contentPane.add(currentBillsPanel);
 
         return contentPane;
     }
@@ -100,99 +106,93 @@ public class CustomerDashboardView extends JPanel {
         return panel;
     }
 
-    // private JPanel createPackagePlanPanel(String title, ArrayList<SubscriptionPlan> plans) {
-    //     JPanel panel = new JPanel();
-    //     panel.setBackground(Color.WHITE);
-    //     panel.setLayout(new BorderLayout());
-    //     panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // Add space above the panel
+    private JPanel createCurrentBillsPanel(ArrayList<UtilityBill> bills) {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.WHITE);
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // Add space above the panel
 
-    //     JLabel titleLabel = new JLabel(title);
-    //     titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    //     titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Utility Bills");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-    //     JPanel contentPanel = new JPanel();
-    //     contentPanel.setBackground(Color.WHITE);
-    //     contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-    //     contentPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel contentPanel = new JPanel();
+        contentPanel.setBackground(Color.WHITE);
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    //     if (plans == null || plans.isEmpty()) {
-    //         JLabel emptyLabel = new JLabel("None");
-    //         emptyLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-    //         emptyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        if (bills == null || bills.isEmpty()) {
+            JLabel emptyLabel = new JLabel("None");
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+            emptyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    //         // Add spacing before and after the "None" label
-    //         contentPanel.add(Box.createVerticalStrut(20));
-    //         contentPanel.add(emptyLabel);
-    //         contentPanel.add(Box.createVerticalStrut(20));
-    //     } else {
-    //         for (SubscriptionPlan plan : plans) {
-    //             JPanel planPanel = createPlanPanel(plan, title.equals("Subscribed Plans"));
+            // Add spacing before and after the "None" label
+            contentPanel.add(Box.createVerticalStrut(20));
+            contentPanel.add(emptyLabel);
+            contentPanel.add(Box.createVerticalStrut(20));
+        } else {
+            for (UtilityBill bill : bills) {
+                JPanel planPanel = createBillPanel(bill);
 
-    //             // Add spacing between each plan
-    //             contentPanel.add(Box.createVerticalStrut(20));
-    //             contentPanel.add(planPanel);
-    //         }
-    //     }
+                // Add spacing between each plan
+                contentPanel.add(Box.createVerticalStrut(20));
+                contentPanel.add(planPanel);
+            }
+        }
 
-    //     panel.add(contentPanel, BorderLayout.CENTER);
-    //     panel.add(titleLabel, BorderLayout.NORTH);
+        panel.add(contentPanel, BorderLayout.CENTER);
+        panel.add(titleLabel, BorderLayout.NORTH);
 
-    //     return panel;
-    // }
+        return panel;
+    }
 
-    // private JPanel createSubscribedPlansPanel(ArrayList<SubscriptionPlan> subscribed) {
-    //     return createPackagePlanPanel("Subscribed Plans", subscribed);
-    // }
+    private JPanel createBillPanel(UtilityBill bill) {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.WHITE);
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-    // private JPanel createAvailablePackagesPanel(ArrayList<SubscriptionPlan> available) {
-    //     return createPackagePlanPanel("Available Plans", available);
-    // }
+        JLabel typeLabel = new JLabel(bill.getUtilityType());
+        typeLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 
-    // private JPanel createPlanPanel(SubscriptionPlan plan, boolean subscribed) {
-    //     JPanel panel = new JPanel();
-    //     panel.setBackground(Color.WHITE);
-    //     panel.setLayout(new BorderLayout());
-    //     panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JLabel dataLabel = new JLabel("Usage: " + bill.getMeterMeasurement());
+        dataLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 
-    //     JLabel planLabel = new JLabel(plan.getName());
-    //     planLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        JLabel priceLabel = new JLabel("Price: $" + String.format("%.2f", bill.getPrice()));
+        priceLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 
-    //     JLabel priceLabel = new JLabel("Price: $" + String.format("%.2f", plan.getPrice()));
-    //     priceLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        JLabel dateLabel = new JLabel("Date: " + bill.getDate());
+        dateLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 
-    //     JLabel descripLabel = new JLabel(plan.getDescription());
-    //     descripLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBackground(Color.WHITE);
+        infoPanel.add(typeLabel);
+        infoPanel.add(dataLabel);
+        infoPanel.add(priceLabel);
+        infoPanel.add(dateLabel);
 
-    //     JLabel dataLabel = new JLabel("Data: " + plan.getData() + "GB");
-    //     dataLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        panel.add(infoPanel, BorderLayout.CENTER);
 
-    //     JLabel talkTimeLabel = new JLabel("Talk Time: " + plan.getTalkTime() + " minutes");
-    //     talkTimeLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        JButton actionButton = new JButton("Edit");
+        actionButton.addActionListener(e -> {
+            app.customerDashboard();
+        });
 
-    //     JPanel infoPanel = new JPanel();
-    //     infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-    //     infoPanel.setBackground(Color.WHITE);
-    //     infoPanel.add(planLabel);
-    //     infoPanel.add(priceLabel);
-    //     infoPanel.add(descripLabel);
-    //     infoPanel.add(dataLabel);
-    //     infoPanel.add(talkTimeLabel);
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(e -> {
+            app.deleteBill(bill.getId());
+            app.customerDashboard();
+        });
 
-    //     panel.add(infoPanel, BorderLayout.CENTER);
+        // Create a panel with FlowLayout to hold the buttons side by side
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(actionButton);
+        buttonPanel.add(deleteButton);
 
-    //     JButton actionButton = new JButton(subscribed ? "Cancel Subscription" : "Subscribe");
-    //     actionButton.addActionListener(e -> {
-    //         if (subscribed) {
-    //             app.cancelSubscription(customer, plan);
-    //         } else {
-    //             app.subscribe(customer, plan);
-    //         }
-    //         app.customerDashboard(customer);
-    //     });
+        panel.add(buttonPanel, BorderLayout.SOUTH);
 
-    //     panel.add(actionButton, BorderLayout.SOUTH);
-
-    //     return panel;
-    // }
+        return panel;
+    }
 
 }
