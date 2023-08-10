@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-// import java.io.FileNotFoundException;
-// import java.util.ArrayList;
 import java.util.ArrayList;
 
 public class CustomerDashboardView extends JPanel {
@@ -26,6 +24,8 @@ public class CustomerDashboardView extends JPanel {
 
         customerInfoPanel = createCustomerInfoPanel();
         currentBillsPanel = createCurrentBillsPanel(this.customer.getBills());
+
+        add(customerInfoPanel, BorderLayout.NORTH);
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -52,7 +52,6 @@ public class CustomerDashboardView extends JPanel {
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
         contentPane.setBackground(Color.WHITE);
 
-        contentPane.add(customerInfoPanel);
         contentPane.add(currentBillsPanel);
 
         return contentPane;
@@ -176,7 +175,7 @@ public class CustomerDashboardView extends JPanel {
 
         JButton actionButton = new JButton("Edit");
         actionButton.addActionListener(e -> {
-            app.customerDashboard();
+            app.editBillPage(bill);
         });
 
         JButton deleteButton = new JButton("Delete");

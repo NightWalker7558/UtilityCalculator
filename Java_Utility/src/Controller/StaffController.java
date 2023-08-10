@@ -31,7 +31,7 @@ public class StaffController {
     public static ArrayList<UtilityBill> viewUserBills(String username) {
         ArrayList<UtilityBill> userBills = new ArrayList<>();
         for (UtilityBill bill : writtenBills.getBills()) {
-            if (bill.getUserName().equals(username)) {
+            if (bill.getUserName().contains(username)) {
                 userBills.add(bill);
             }
         }

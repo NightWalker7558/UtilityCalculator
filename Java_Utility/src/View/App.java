@@ -3,6 +3,7 @@ package View;
 import Controller.CustomerController;
 
 import Model.Customer;
+import Model.UtilityBill;
 
 // import java.io.BufferedReader;
 // import java.io.BufferedWriter;
@@ -30,6 +31,7 @@ public class App extends JFrame {
     CustomerDashboardView customerDashboardView;
     AdminDashboardView adminDashboardView;
     NewBillView newBillView;
+    EditBillView editBillView;
 
     // Controllers
     CustomerController customerController;
@@ -100,6 +102,19 @@ public class App extends JFrame {
 
     protected void addNewBill(String utilityType, double meterMeasurement, String date) {
         loggedInCustomer.addBill(utilityType, meterMeasurement, date);
+    }
+
+    // Edit Bill Page
+
+    protected void editBillPage(UtilityBill utilityBill) {
+        editBillView = new EditBillView(this, utilityBill);
+        paneChange(editBillView);
+    }
+
+    // Edit Bill
+
+    protected  void editBill(int id, double meterMeasurement) {
+        loggedInCustomer.editBill(id, meterMeasurement);
     }
 
     // Delete Bill
