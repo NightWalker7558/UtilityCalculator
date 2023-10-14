@@ -1,4 +1,0 @@
-john_doe,password123,john@example.com
-jane_smith,securePwd,jane@example.com
-alice,alice123,alice@example.com
-bob,bob_password,bob@example.com
