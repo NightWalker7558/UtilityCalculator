@@ -38,6 +38,9 @@ public class UtilityBill {
     this.type = type;
   }
 
+  /**
+   * @return ServiceType
+   */
   public ServiceType getType() {
     return this.type;
   }

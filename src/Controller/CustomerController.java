@@ -45,6 +45,12 @@ public class CustomerController {
     }
   }
 
+  /**
+   * @param username
+   * @param password
+   * @param email
+   * @return boolean
+   */
   public boolean registerNewUser(
     String username,
     String password,

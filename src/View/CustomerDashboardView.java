@@ -64,6 +64,9 @@ public class CustomerDashboardView extends JPanel {
     return contentPane;
   }
 
+  /**
+   * @return JPanel
+   */
   private JPanel createCustomerInfoPanel() {
     JPanel panel = new JPanel();
     panel.setBackground(Color.decode("#98c1d9"));

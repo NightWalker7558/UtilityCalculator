@@ -207,6 +207,10 @@ public class EditBillView extends JPanel {
     return label;
   }
 
+  /**
+   * @param text
+   * @return JLabel
+   */
   private JLabel createEditableLabel(String text) {
     JLabel label = new JLabel(text);
     label.setFont(new Font("Arial", Font.PLAIN, 14));

@@ -182,6 +182,9 @@ public class TextPrompt
     checkForPrompt();
   }
 
+  /**
+   * @param e
+   */
   public void focusLost(FocusEvent e) {
     focusLost++;
     checkForPrompt();

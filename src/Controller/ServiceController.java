@@ -78,6 +78,10 @@ public class ServiceController {
     savePricesToFile();
   }
 
+  /**
+   * @param serviceType
+   * @param newServiceCharges
+   */
   public static void updateServiceCharges(
     ServiceType serviceType,
     double newServiceCharges

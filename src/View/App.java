@@ -79,6 +79,11 @@ public class App extends JFrame {
     paneChange(customerLoginView);
   }
 
+  /**
+   * @param username
+   * @param password
+   * @return boolean
+   */
   // Customer Validation and Other Operations
 
   protected boolean validateCustomerLogin(String username, String password) {

@@ -26,6 +26,9 @@ public class StaffController {
     System.out.println("Total Price for All Bills: " + totalPrice);
   }
 
+  /**
+   * @return ArrayList<UtilityBill>
+   */
   public static ArrayList<UtilityBill> viewAllBills() {
     return writtenBills.getBills();
   }

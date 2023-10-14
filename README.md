@@ -46,6 +46,10 @@ To generate JavaDocs for the project, you can use the following command:
 ```bash
 javadoc -d <output_directory> -sourcepath <source_directory> Controller Model View
 ```
+or 
+```bash
+javadoc -d html -sourcepath src -subpackages Controller Model View
+```
 
 To view the documentation, please visit: https://java-utility-docs.vercel.app/index.html
 

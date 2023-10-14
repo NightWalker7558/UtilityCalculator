@@ -56,6 +56,10 @@ public class WrittenBills {
     }
   }
 
+  /**
+   * @param id
+   * @return boolean
+   */
   public boolean findiD(int id) {
     for (UtilityBill bill : bills) {
       if (bill.getId() == id) {

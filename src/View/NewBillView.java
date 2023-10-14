@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 public class NewBillView extends JPanel {
 
-  private JComboBox typeField;
+  private JComboBox<String> typeField;
   private JTextField readingField;
   private JFormattedTextField dateTextField;
   private JButton addButton;
