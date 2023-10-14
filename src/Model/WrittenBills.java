@@ -6,12 +6,29 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The WrittenBills class represents a collection of utility bills stored in a
+ * file.
+ */
 public class WrittenBills {
 
+  /**
+   * The list of utility bills.
+   */
   private ArrayList<UtilityBill> bills;
-  private String billsFilePath; // File path for storing written bills
+  /**
+   * The path of the file containing the utility bills.
+   */
+  private String billsFilePath;
+  /**
+   * The ID of the utility bill.
+   */
   private int id;
 
+  /**
+   * Constructs a WrittenBills instance, initializing the list of bills and
+   * loading existing bills from a file.
+   */
   public WrittenBills() {
     this.bills = new ArrayList<>();
     this.billsFilePath = "src/Model/bills.txt";
@@ -21,12 +38,17 @@ public class WrittenBills {
   }
 
   /**
-   * @return ArrayList<UtilityBill>
+   * Gets the list of utility bills.
+   *
+   * @return ArrayList of UtilityBill representing the bills.
    */
   public ArrayList<UtilityBill> getBills() {
     return bills;
   }
 
+  /**
+   * Loads utility bills from a file.
+   */
   public void loadBillsFromFile() {
     try {
       File file = new File(billsFilePath);
@@ -44,8 +66,7 @@ public class WrittenBills {
         String Date = parts[5].trim();
         if (findiD(id) == false) {
           bills.add(
-            new UtilityBill(id, name, UtilityType, metermeasurment, price, Date)
-          );
+              new UtilityBill(id, name, UtilityType, metermeasurment, price, Date));
           increaseID();
         }
       }
@@ -57,8 +78,9 @@ public class WrittenBills {
   }
 
   /**
-   * @param id
-   * @return boolean
+   * Finds a utility bill by its ID.
+   * 
+   * @param id The ID of the bill to be found.
    */
   public boolean findiD(int id) {
     for (UtilityBill bill : bills) {
@@ -69,23 +91,37 @@ public class WrittenBills {
     return false;
   }
 
+  /**
+   * Adds a utility bill for the Customer.
+   *
+   * @param username         The username of the Customer.
+   * @param utilityType      The type of utility.
+   * @param meterMeasurement The meter measurement.
+   * @param date             The date of the bill.
+   */
   public void addBill(
-    String username,
-    String utilityType,
-    double meterMeasurement,
-    String date
-  ) {
+      String username,
+      String utilityType,
+      double meterMeasurement,
+      String date) {
     bills.add(
-      new UtilityBill(id, username, utilityType, meterMeasurement, 0.0, date)
-    );
+        new UtilityBill(id, username, utilityType, meterMeasurement, 0.0, date));
     increaseID();
     saveBillsToFile();
   }
 
+  /**
+   * Increases the ID of the utility bill.
+   */
   public void increaseID() {
     this.id = this.id + 1;
   }
 
+  /**
+   * Deletes a utility bill for the Customer.
+   *
+   * @param billId The ID of the bill to be deleted.
+   */
   public void deleteBill(int billId) {
     UtilityBill bill = findbill(billId);
     if (bill != null) {
@@ -94,6 +130,12 @@ public class WrittenBills {
     }
   }
 
+  /**
+   * Edits a utility bill for the Customer.
+   *
+   * @param billId              The ID of the bill to be edited.
+   * @param newMeterMeasurement The new meter measurement.
+   */
   public void editBill(int billId, Double newMeterMeasurement) {
     UtilityBill bill = findbill(billId);
     if (bill != null) {
@@ -103,6 +145,11 @@ public class WrittenBills {
     }
   }
 
+  /**
+   * Finds a utility bill by its ID.
+   * 
+   * @param billId The ID of the bill to be found.
+   */
   public UtilityBill findbill(int billId) {
     for (UtilityBill bill : bills) {
       if (bill.getId() == billId) {
@@ -112,6 +159,9 @@ public class WrittenBills {
     return null;
   }
 
+  /**
+   * Saves the utility bills to a file.
+   */
   private void saveBillsToFile() {
     try {
       File file = new File(billsFilePath);
@@ -119,18 +169,17 @@ public class WrittenBills {
 
       for (UtilityBill bill : bills) {
         writer.println(
-          bill.getId() +
-          "," +
-          bill.getUserName() +
-          "," +
-          bill.getUtilityType() +
-          "," +
-          bill.getMeterMeasurement() +
-          "," +
-          bill.getPrice() +
-          "," +
-          bill.getDate()
-        );
+            bill.getId() +
+                "," +
+                bill.getUserName() +
+                "," +
+                bill.getUtilityType() +
+                "," +
+                bill.getMeterMeasurement() +
+                "," +
+                bill.getPrice() +
+                "," +
+                bill.getDate());
       }
 
       writer.close();
