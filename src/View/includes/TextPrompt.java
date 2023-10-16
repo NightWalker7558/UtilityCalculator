@@ -8,35 +8,87 @@ import javax.swing.event.*;
 import javax.swing.text.*;
 
 /**
- *  The TextPrompt class will display a prompt over top of a text component when
- *  the Document of the text field is empty. The Show property is used to
- *  determine the visibility of the prompt.
+ * The `TextPrompt` class displays a prompt over a text component when its document is empty.
+ * The prompt's visibility and appearance can be customized. It will automatically hide when text is entered.
  *
- *  The Font and foreground Color of the prompt will default to those properties
- *  of the parent text component. You are free to change the properties after
- *  class construction.
+ * @see JLabel
+ * @see FocusListener
+ * @see DocumentListener
  */
 public class TextPrompt
   extends JLabel
   implements FocusListener, DocumentListener {
 
+  /**
+   * The `Show` enum represents the visibility options for the `TextPrompt`.
+   * It defines when the prompt should be displayed.
+   */
   public enum Show {
+    /**
+     * The `ALWAYS` option indicates that the prompt should always be displayed.
+     */
     ALWAYS,
+
+    /**
+     * The `FOCUS_GAINED` option indicates that the prompt should be displayed when
+     * the associated `JTextComponent` gains focus and hidden when it loses focus.
+     */
     FOCUS_GAINED,
+
+    /**
+     * The `FOCUS_LOST` option indicates that the prompt should be displayed when
+     * the associated `JTextComponent` loses focus and hidden when it gains focus.
+     */
     FOCUS_LOST,
   }
 
+  /**
+   * The `component` field represents the associated `JTextComponent` where the prompt is displayed.
+   */
   private JTextComponent component;
+
+  /**
+   * The `document` field represents the `Document` of the associated `JTextComponent`.
+   */
   private Document document;
 
+  /**
+   * The `show` field is of the `Show` enum type and controls when the prompt is displayed.
+   * Possible values are `ALWAYS`, `FOCUS_GAINED`, and `FOCUS_LOST`.
+   */
   private Show show;
+
+  /**
+   * The `showPromptOnce` field determines whether the prompt should be shown only once.
+   * If set to `true`, the prompt is shown only once when the component gains/loses focus.
+   */
   private boolean showPromptOnce;
+
+  /**
+   * The `focusLost` field keeps track of the number of times focus has been lost on the component.
+   * It is used to manage the prompt's visibility based on focus events.
+   */
   private int focusLost;
 
+  /**
+   * Constructs a `TextPrompt` with the specified text and text component, using the default show behavior "ALWAYS."
+   *
+   * @param text      The text to be displayed as the prompt.
+   * @param component The text component for which the prompt is displayed.
+   * @see Show
+   */
   public TextPrompt(String text, JTextComponent component) {
     this(text, component, Show.ALWAYS);
   }
 
+  /**
+   * Constructs a `TextPrompt` with the specified text, text component, and show behavior.
+   *
+   * @param text      The text to be displayed as the prompt.
+   * @param component The text component for which the prompt is displayed.
+   * @param show      When to show the prompt (ALWAYS, FOCUS_GAINED, or FOCUS_LOST, as defined in the Show enum).
+   * @see Show
+   */
   public TextPrompt(String text, JTextComponent component, Show show) {
     this.component = component;
     setShow(show);
@@ -145,8 +197,6 @@ public class TextPrompt
    *  will change on updates to the Document and on focus changes.
    */
   private void checkForPrompt() {
-    //  Text has been entered, remove the prompt
-
     if (document.getLength() > 0) {
       setVisible(false);
       return;
@@ -174,31 +224,46 @@ public class TextPrompt
   }
 
   /**
-   * @param e
+   * Invoked when the associated text component gains focus. This method checks whether the prompt should be displayed.
+   *
+   * @param e The `FocusEvent` associated with the focus gain.
    */
-  //  Implement FocusListener
-
   public void focusGained(FocusEvent e) {
     checkForPrompt();
   }
 
   /**
-   * @param e
+   * Invoked when the associated text component loses focus. This method increments the focusLost count and checks whether the prompt should be displayed.
+   *
+   * @param e The `FocusEvent` associated with the focus loss.
    */
   public void focusLost(FocusEvent e) {
     focusLost++;
     checkForPrompt();
   }
 
-  //  Implement DocumentListener
-
+  /**
+   * Invoked when text is inserted into the associated text component's document. This method checks whether the prompt should be displayed.
+   *
+   * @param e The `DocumentEvent` associated with text insertion.
+   */
   public void insertUpdate(DocumentEvent e) {
     checkForPrompt();
   }
 
+  /**
+   * Invoked when text is removed from the associated text component's document. This method checks whether the prompt should be displayed.
+   *
+   * @param e The `DocumentEvent` associated with text removal.
+   */
   public void removeUpdate(DocumentEvent e) {
     checkForPrompt();
   }
 
+  /**
+   * Invoked when there is a change in the associated text component's document. This method does not affect prompt visibility and is left empty.
+   *
+   * @param e The `DocumentEvent` associated with the document change.
+   */
   public void changedUpdate(DocumentEvent e) {}
 }

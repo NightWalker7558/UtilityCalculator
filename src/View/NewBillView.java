@@ -9,14 +9,65 @@ import java.text.SimpleDateFormat;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * A JPanel that provides a user interface for creating a new subscription plan for a utility bill.
+ * Users can input the utility type, reading, and date, and then add the new bill or cancel the operation.
+ * This view is typically used within a larger application to manage utility bills.
+ *
+ * <p>Example usage:
+ * <pre>
+ * App myApp = new App();
+ * NewBillView newBillView = new NewBillView(myApp);
+ * JFrame frame = new JFrame("New Utility Bill");
+ * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ * frame.getContentPane().add(newBillView);
+ * frame.pack();
+ * frame.setVisible(true);
+ * </pre>
+ * </p>
+ *
+ * @see App
+ * @see JComboBox
+ * @see JTextField
+ * @see JFormattedTextField
+ * @see JButton
+ * @see JPanel
+ */
 public class NewBillView extends JPanel {
 
+  /**
+   * JComboBox for selecting the type of utility, such as electricity, gas, or water.
+   */
   private JComboBox<String> typeField;
+
+  /**
+   * JTextField for entering the reading value associated with the utility bill.
+   */
   private JTextField readingField;
+
+  /**
+   * JFormattedTextField for entering the date of the utility bill in the "yyyy-MM-dd" format.
+   */
   private JFormattedTextField dateTextField;
+
+  /**
+   * JButton for adding a new utility bill entry based on the provided data.
+   */
   private JButton addButton;
+
+  /**
+   * JButton for canceling the process of adding a new utility bill and returning to the previous view.
+   */
   private JButton cancelButton;
 
+  /**
+   * <h1>NewBillView</h1>
+   * The `NewBillView` class provides a graphical user interface for creating a new utility bill entry. It allows customers to input data for a new utility bill, including the utility type, reading, and date.
+   *
+   * <p>This view consists of components such as labels, input fields, and buttons for user interaction. Users can select the utility type from a dropdown menu, enter the reading, and specify the date. The "Add" button allows users to submit the new bill entry, and the "Cancel" button enables them to return to the customer dashboard.</p>
+   *
+   * @param app The main application instance that controls the view and handles user interactions.
+   */
   public NewBillView(App app) {
     setLayout(new BorderLayout());
     setBackground(Color.WHITE);
@@ -155,8 +206,10 @@ public class NewBillView extends JPanel {
   }
 
   /**
-   * @param str
-   * @return boolean
+   * Checks if a string is numeric.
+   *
+   * @param str The string to check.
+   * @return `true` if the string is numeric, `false` otherwise.
    */
   private boolean isNumeric(String str) {
     return str.matches("-?\\d+(\\.\\d+)?");

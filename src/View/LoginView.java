@@ -1,91 +1,142 @@
 package View;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
+/**
+ * <h1>LoginView</h1>
+ * The `LoginView` class represents a graphical user interface for user login.
+ *
+ * This view allows the user to enter their username and password for authentication.
+ *
+ * <p>It includes text fields for the username and password, as well as an option to
+ * show or hide the entered password. Additionally, it provides buttons for logging
+ * in and canceling the login process.</p>
+ *
+ * @see App
+ *
+ * @param app The main application instance responsible for managing the login process.
+ *
+ * @implSpec This class relies on the `App` class to handle login procedures. When the user attempts
+ *          to log in, the `App` instance is responsible for validating the credentials and performing
+ *          the actual login process.
+ */
 public class LoginView extends JPanel {
-    protected JTextField usernameField;
-    protected JPasswordField passwordField;
-    protected JButton loginButton;
-    protected JButton cancelButton;
-    protected JCheckBox showPasswordCheckBox;
-    protected App app;
 
-    public LoginView(App app) {
-        this.app = app;
+  /**
+   * The text field for entering the username.
+   */
+  protected JTextField usernameField;
 
-        setLayout(new GridBagLayout());
-        setBackground(Color.WHITE);
-        setBorder(new EmptyBorder(20, 20, 20, 20));
+  /**
+   * The password field for entering the password.
+   */
+  protected JPasswordField passwordField;
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 5, 5, 5);
+  /**
+   * The button used to initiate the login process.
+   */
+  protected JButton loginButton;
 
-        JLabel usernameLabel = new JLabel("Username:");
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        add(usernameLabel, gbc);
+  /**
+   * The button used to cancel the login process.
+   */
+  protected JButton cancelButton;
 
-        usernameField = new JTextField(20);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        add(usernameField, gbc);
+  /**
+   * A checkbox to toggle the password visibility.
+   */
+  protected JCheckBox showPasswordCheckBox;
 
-        JLabel passwordLabel = new JLabel("Password:");
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        add(passwordLabel, gbc);
+  /**
+   * The main application instance responsible for managing login procedures.
+   */
+  protected App app;
 
-        passwordField = new JPasswordField(20);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(passwordField, gbc);
+  /**
+   * Constructs a new `LoginView` with the specified application instance.
+   *
+   * @param app The main application instance that manages the login process.
+   */
+  public LoginView(App app) {
+    this.app = app;
 
-        showPasswordCheckBox = new JCheckBox("Show Password");
-        showPasswordCheckBox.setBackground(Color.WHITE);
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        showPasswordCheckBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                int state = e.getStateChange();
-                if (state == ItemEvent.SELECTED) {
-                    passwordField.setEchoChar((char) 0); // Show password
-                } else {
-                    passwordField.setEchoChar('\u2022'); // Hide password with bullet character
-                }
-            }
-        });
-        add(showPasswordCheckBox, gbc);
+    setLayout(new GridBagLayout());
+    setBackground(Color.WHITE);
+    setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.setBackground(Color.WHITE);
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.insets = new Insets(5, 5, 5, 5);
 
-        loginButton = new JButton("Login");
-        loginButton.setBackground(Color.decode("#ee6c4d"));
-        loginButton.setForeground(Color.WHITE);
-        buttonPanel.add(loginButton);
+    JLabel usernameLabel = new JLabel("Username:");
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    add(usernameLabel, gbc);
 
-        cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                app.selectionPane();
-            }
-        });
-        cancelButton.setBackground(Color.decode("#3d5a80"));
-        cancelButton.setForeground(Color.WHITE);
-        buttonPanel.add(cancelButton);
+    usernameField = new JTextField(20);
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    add(usernameField, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = GridBagConstraints.REMAINDER; // Set gridwidth to REMAINDER
-        add(buttonPanel, gbc);
-    }
+    JLabel passwordLabel = new JLabel("Password:");
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    add(passwordLabel, gbc);
+
+    passwordField = new JPasswordField(20);
+    gbc.gridx = 1;
+    gbc.gridy = 1;
+    add(passwordField, gbc);
+
+    showPasswordCheckBox = new JCheckBox("Show Password");
+    showPasswordCheckBox.setBackground(Color.WHITE);
+    gbc.gridx = 1;
+    gbc.gridy = 2;
+    showPasswordCheckBox.addItemListener(
+      new ItemListener() {
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+          int state = e.getStateChange();
+          if (state == ItemEvent.SELECTED) {
+            passwordField.setEchoChar((char) 0); // Show password
+          } else {
+            passwordField.setEchoChar('\u2022'); // Hide password with bullet character
+          }
+        }
+      }
+    );
+    add(showPasswordCheckBox, gbc);
+
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    buttonPanel.setBackground(Color.WHITE);
+
+    loginButton = new JButton("Login");
+    loginButton.setBackground(Color.decode("#ee6c4d"));
+    loginButton.setForeground(Color.WHITE);
+    buttonPanel.add(loginButton);
+
+    cancelButton = new JButton("Cancel");
+    cancelButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          app.selectionPane();
+        }
+      }
+    );
+    cancelButton.setBackground(Color.decode("#3d5a80"));
+    cancelButton.setForeground(Color.WHITE);
+    buttonPanel.add(cancelButton);
+
+    gbc.gridx = 0;
+    gbc.gridy = 3;
+    gbc.gridwidth = GridBagConstraints.REMAINDER; // Set gridwidth to REMAINDER
+    add(buttonPanel, gbc);
+  }
 }
