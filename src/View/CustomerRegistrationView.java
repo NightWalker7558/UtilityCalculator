@@ -8,17 +8,63 @@ import java.awt.event.ItemListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * The CustomerRegistrationView class represents a graphical user interface for customer registration.
+ * It allows users to input their registration information, including username, email, password, and
+ * confirmation password. Users can register or cancel the registration process. Additionally, a
+ * "Show Password" checkbox is provided to toggle the visibility of the password fields.
+ * <p>
+ * This class is part of the App's user interface and is used in the customer registration process.
+ */
 public class CustomerRegistrationView extends JPanel {
 
+  /**
+   * The text field for entering the desired username.
+   */
   private JTextField usernameField;
+
+  /**
+   * The text field for entering the user's email address.
+   */
   private JTextField emailField;
+
+  /**
+   * The password field for entering the user's desired password.
+   */
   private JPasswordField passwordField;
+
+  /**
+   * The password field for confirming the user's password.
+   */
   private JPasswordField confirmPasswordField;
+
+  /**
+   * The button for initiating the registration process.
+   */
   private JButton registerButton;
+
+  /**
+   * The button for canceling the registration process.
+   */
   private JButton cancelButton;
+
+  /**
+   * A checkbox that, when selected, makes the password fields visible.
+   */
   private JCheckBox showPasswordCheckBox;
+
+  /**
+   * Reference to the App class, used for interactions and communication between the view and the
+   * application logic.
+   */
   App app;
 
+  /**
+   * Constructs the customer registration view.
+   * Initializes the layout, background color, and border of the view.
+   *
+   * @param app The reference to the parent application.
+   */
   public CustomerRegistrationView(App app) {
     this.app = app;
 
@@ -139,11 +185,19 @@ public class CustomerRegistrationView extends JPanel {
   }
 
   /**
-   * @param username
-   * @param email
-   * @param password
-   * @param confirmPassword
-   * @return boolean
+   * Validates the registration details entered by the user.
+   *
+   * <p>This method performs validation checks on the provided registration details, including the username, email, password, and confirm password.
+   * It displays error messages using JOptionPane if any validation errors are encountered. If all validation checks pass, it calls the
+   * registerNewUser method of the parent application to register the new user.</p>
+   *
+   * @param username The username entered by the user.
+   * @param email The email entered by the user.
+   * @param password The password entered by the user.
+   * @param confirmPassword The confirmed password entered by the user.
+   * @return true if the registration details are valid and the user is successfully registered, false otherwise.
+   * @throws NullPointerException if any of the parameters are null.
+   * @see App#registerNewUser(String, String, String)
    */
   private boolean validateRegistration(
     String username,

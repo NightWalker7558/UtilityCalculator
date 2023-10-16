@@ -7,17 +7,63 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * The EditBillView class represents a graphical user interface for editing a bill's details.
+ * It allows users to view and modify the name, price, reading, and date associated with a bill.
+ * Users can navigate back, delete the bill, or save the changes made to the bill's information.
+ * <p>
+ * This class serves as part of the App's user interface and is used for managing bill details.
+ */
 public class EditBillView extends JPanel {
 
+  /**
+   * A reference to the main application instance, facilitating communication between the view and
+   * the application logic.
+   */
   protected App app;
+
+  /**
+   * A label displaying the bill's name.
+   */
   private JLabel nameLabel;
+
+  /**
+   * A label displaying the bill's price.
+   */
   private JLabel priceLabel;
+
+  /**
+   * A label displaying the bill's reading.
+   */
   private JLabel readingLabel;
+
+  /**
+   * A label displaying the bill's date.
+   */
   private JLabel dateLabel;
+
+  /**
+   * A button for navigating back to the previous screen.
+   */
   private JButton backButton;
+
+  /**
+   * A button for deleting the bill.
+   */
   private JButton deleteButton;
+
+  /**
+   * A button for saving changes made to the bill's details.
+   */
   private JButton saveButton;
 
+  /**
+   * Constructs a new EditBillView.
+   * Initializes the graphical user interface components, including labels and buttons, for
+   * viewing and editing bill details. It also sets up event listeners for user interactions.
+   *
+   * @param app The main application instance to connect the view with the application logic.
+   */
   public EditBillView(App app, UtilityBill utilityBill) {
     this.app = app;
 
@@ -196,8 +242,21 @@ public class EditBillView extends JPanel {
   }
 
   /**
-   * @param text
-   * @return JLabel
+   * The createFieldLabel method generates a custom label with specified text, font, alignment, and border.
+   * This label is typically used alongside input fields to provide descriptive text or labels for user input.
+   *
+   * @param text The text content of the label.
+   * @return A new JLabel customized with the specified text, font, alignment, and border settings.
+   *
+   * @implSpec This method ensures that the created label adheres to a consistent visual style,
+   * using the "Arial" font with a bold style and a font size of 14. The label's border is set to create
+   * padding on the top, bottom, and right, ensuring an aesthetically pleasing and user-friendly layout.
+   *
+   * @param text The text content to be displayed on the label.
+   * @return A new JLabel instance with the provided text and custom settings.
+   * @see JLabel
+   * @see Font
+   * @see EmptyBorder
    */
   private JLabel createFieldLabel(String text) {
     JLabel label = new JLabel(text);
@@ -208,8 +267,22 @@ public class EditBillView extends JPanel {
   }
 
   /**
-   * @param text
-   * @return JLabel
+   * The createEditableLabel method generates an editable label with the specified text, font, alignment, and border.
+   * This label is often used to display information that users can edit or modify.
+   *
+   * @param text The text content of the editable label.
+   * @return A new JLabel customized with the specified text, font, alignment, and border settings.
+   *
+   * @implSpec This method ensures that the created editable label adheres to a consistent visual style.
+   * It uses the "Arial" font with a plain style and a font size of 14. The label's border is set to create
+   * padding on the top and bottom, providing a visually pleasing layout. The label is also aligned to the
+   * left to maintain consistent placement within the user interface.
+   *
+   * @param text The text content to be displayed on the editable label.
+   * @return A new JLabel instance with the provided text and custom settings.
+   * @see JLabel
+   * @see Font
+   * @see EmptyBorder
    */
   private JLabel createEditableLabel(String text) {
     JLabel label = new JLabel(text);
@@ -219,6 +292,30 @@ public class EditBillView extends JPanel {
     return label;
   }
 
+  /**
+   * The createEditButton method generates an edit button with the specified text, font, and functionality
+   * for modifying the content of a target JLabel when clicked.
+   *
+   * @param text The text content of the edit button.
+   * @param targetLabel The JLabel whose content will be modified when the edit button is clicked.
+   * @return A new JButton customized with the specified text, font, and action listener for editing a JLabel.
+   *
+   * @implSpec This method ensures that the created edit button adheres to a consistent visual style. It uses
+   * the "Arial" font with a plain style and a font size of 12. The button is aligned to the left to maintain
+   * consistent placement within the user interface. When the edit button is clicked, it displays a dialog
+   * prompting the user to enter a new value. If a non-empty value is provided, the target JLabel's content is
+   * updated, and other buttons' states are adjusted accordingly.
+   *
+   * @param text The text content to be displayed on the edit button.
+   * @param targetLabel The JLabel whose content will be modified when the edit button is clicked.
+   * @return A new JButton instance with the provided text, font, and functionality.
+   * @see JButton
+   * @see JLabel
+   * @see Font
+   * @see ActionListener
+   * @see ActionEvent
+   * @see JOptionPane
+   */
   private JButton createEditButton(String text, JLabel targetLabel) {
     JButton button = new JButton(text);
     button.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -242,6 +339,22 @@ public class EditBillView extends JPanel {
     return button;
   }
 
+  /**
+   * The isNumeric method checks whether a given string is a numeric value, which may include integers
+   * and floating-point numbers (with or without a sign).
+   *
+   * @param str The input string to be checked for numeric content.
+   * @return {@code true} if the input string is a numeric value, and {@code false} otherwise.
+   *
+   * @implSpec This method determines whether the provided string is numeric by using a regular expression.
+   * It checks if the string matches the pattern for numeric values, which may include an optional sign
+   * (positive or negative) and an optional decimal part. The method returns {@code true} if the string
+   * matches the numeric pattern and {@code false} if it does not.
+   *
+   * @param str The string to be evaluated for numeric content.
+   * @return {@code true} if the input string is numeric, and {@code false} otherwise.
+   * @see String#matches(String)
+   */
   private boolean isNumeric(String str) {
     return str.matches("-?\\d+(\\.\\d+)?");
   }
