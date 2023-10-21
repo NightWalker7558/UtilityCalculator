@@ -66,9 +66,6 @@ public class CustomerDashboardView extends JPanel {
    * @see JButton
    * @see Dimension
    * @see createCustomerInfoPanel()
-   * @see createCurrentBillsPanel(List)
-   * @see createContentPane()
-   * @see newBillView()
    */
   public CustomerDashboardView(App app, Customer customer) {
     this.app = app;
