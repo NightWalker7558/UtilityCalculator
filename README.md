@@ -55,6 +55,6 @@ To view the documentation, please visit: https://java-utility-docs.vercel.app/in
 
 ## Authors
 
-- [Muhammad Ashhub Ali](https://github.com/NightWalker7558)
+- [Muhammad Ashhub Ali](https://github.com/AshhubAli)
 - [Adeel Ahmed](https://github.com/itsAdee)
 - [Ahmad Zafar](https://github.com/Arch-Frost)
