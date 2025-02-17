@@ -1,8 +1,8 @@
-# JAVA_Utility
+# Utility Calculator
 
 ## Overview
 
-**JAVA_Utility** is a Java application for managing utility bills and services. It provides features for both customers and administrators to interact with utility bill data and service information.
+**Utility Calculator** is a Java application for managing utility bills and services. It provides features for both customers and administrators to interact with utility bill data and service information.
 
 ## Features
 
@@ -55,6 +55,6 @@ To view the documentation, please visit: https://java-utility-docs.vercel.app/in
 
 ## Authors
 
-- [Muhammad Ashhub Ali](https://github.com/AshhubAli)
+- [Muhammad Ashhub Ali](https://github.com/NightWalker7558)
 - [Adeel Ahmed](https://github.com/itsAdee)
 - [Ahmad Zafar](https://github.com/Arch-Frost)
